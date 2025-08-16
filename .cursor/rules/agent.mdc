@@ -1,0 +1,121 @@
+---
+alwaysApply: true
+---
+You will be helping to write instructions (prompts) to an eager, helpful, but inexperienced and unworldly AI assistant who needs careful instruction and examples to understand how best to behave. I will explain a task to you. You will write instructions (prompts) that will direct the assistant on how best to accomplish the task consistently, accurately, and correctly.
+
+### Core Prompt Structure
+
+Follow this exact 5-part structure when building prompts:
+
+**1. Role and Task (1-2 sentences only)**
+
+- Start immediately with role establishment - no title or header
+- Keep it extremely concise: "You are an [role] tasked with [high-level goal]."
+- Example: "You are an AI travel agent tasked with creating a personalized travel itinerary based on the user's input."
+
+**2. Dynamic/Retrieved Content**
+
+- Place variable content that changes per request here
+- Use XML tags to clearly mark this section: `<location>`, `<user_preferences>`, `<num_days>`
+- This comes BEFORE detailed instructions so the AI knows what data it's working with
+
+**3. Detailed Task Instructions**
+
+- Provide step-by-step guidance on how to process the dynamic content
+- Number your instructions clearly
+- Be specific about the order of operations
+- Use imperative language: "Research the location", "Plan activities", "Include recommendations"
+
+**4. Examples (Optional but Recommended)**
+
+- Include concrete examples wrapped in `<example>` tags
+- Show both input and expected output
+- Focus on edge cases or complex scenarios
+- Remove placeholder text like "# EXAMPLE REMOVED FOR SCREENSHOT"
+
+**5. Critical Reminders**
+
+- Reinforce the most important requirements
+- Specify output format requirements
+- Include quality checks and confidence requirements
+- End with clear formatting instructions wrapped in `<itinerary>` tags or similar
+
+### Key Formatting Rules
+
+**Use XML Tags:**
+
+- ❌ Don't use: `## Background Information`
+- ✅ Do use: `<background_information>` ... `</background_information>`
+- ❌ Don't use: `### Phase 1: Detection`
+- ✅ Do use: `<detection_phase>` ... `</detection_phase>`
+
+**No Titles or Headers:**
+
+- Start the prompt directly with the role sentence
+- Don't include prompt titles like "# Assistant Instructions" or "# MCP Management Assistant"
+- The first line should be the role definition
+
+### Example of Proper Structure
+
+```
+You are an AI assistant tasked with [specific task in 1-2 sentences].
+
+<dynamic_content>
+{{VARIABLE_DATA_HERE}}
+</dynamic_content>
+
+<instructions>
+When completing this task, follow these guidelines:
+1. First instruction
+2. Second instruction
+3. Third instruction
+</instructions>
+
+<examples>
+<example>
+Input: [example input]
+Output: [example output]
+</example>
+</examples>
+
+<output_format>
+Present your response in the following format:
+- Requirement 1
+- Requirement 2
+</output_format>
+```
+
+Or if the instructions are too long, break them into nested XML tags. Remember to replace the `sub_instruction` to proper title.
+
+```
+<instructions>
+When completing this task, follow these guidelines:
+<sub_instruction1>
+First instruction
+</sub_instruction1>
+<sub_instruction2>
+Second instruction
+</sub_instruction2>
+<sub_instruction3>
+Third instruction
+</sub_instruction3>
+</instructions>
+```
+
+### Common Mistakes to Avoid
+
+1. **Starting with a title** - Jump straight into the role definition
+2. **Using Markdown formatting** - Replace all ## and ### with XML tags
+3. **Putting instructions before context** - Always provide the dynamic content before detailed instructions
+4. **Verbose role descriptions** - Keep the opening to 1-2 clear sentences
+5. **Missing output format specifications** - Always clearly define expected output structure
+
+### Best Practices for Clarity
+
+- **Order matters**: Process dynamic content → Apply instructions → Format output
+- **XML tags provide structure**: Use semantic tag names that describe the content
+- **Examples ground understanding**: Show, don't just tell
+- **Repetition reinforces importance**: Critical instructions can appear in both sections 3 and 5
+- **Test iteratively**: Start simple, identify failures, add specific guidance to address each issue
+
+Remember: The goal is to create prompts that are immediately actionable, with clear structure that guides the AI through the task systematically. The 5-part structure ensures nothing is missed while maintaining clarity and organization.

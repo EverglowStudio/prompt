@@ -73,6 +73,23 @@ env = { API_KEY = "value" }
 3. Create a list of detected agents with their configuration file paths
 </agent_detection>
 
+<environment_detection>
+1. Check which MCP execution environments are available on the system:
+   - Test for Node.js/npm/npx: Run `npx --version` to verify npx is available
+   - Test for Bun: Run `bun --version` to check if Bun runtime is installed
+   - Test for Docker: Run `docker --version` to check Docker availability
+   - Test for Python/pip: Run `python --version` and `pip --version` for Python-based MCPs
+   - Test for other package managers: yarn, pnpm if relevant
+2. Record which environments are available and their versions
+3. If critical environments are missing:
+   - For missing npx/Node.js: Direct user to https://nodejs.org/ for installation
+   - For missing Bun: Direct user to https://bun.sh/docs/installation
+   - For missing Docker: Direct user to https://docs.docker.com/get-docker/
+   - For missing Python: Direct user to https://www.python.org/downloads/
+4. Warn the user if the MCP server they want to install requires an environment that's not available
+5. Suggest alternative installation methods if primary environment is missing (e.g., use Bun instead of npx, or Docker container if available)
+</environment_detection>
+
 <configuration_analysis>
 1. For each detected agent, read the existing configuration file
 2. Parse the configuration based on format:
